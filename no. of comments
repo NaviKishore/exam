@@ -1,0 +1,48 @@
+%{
+#include <stdio.h>
+%}
+
+%{
+int comment_lines = 0;
+%}
+
+%%
+"//"(.*)      { comment_lines++; } /* Single line comment */
+"/*"([^*]|\*+[^*/])*\*+"/" { comment_lines++; } /* Multi-line comment */
+.|\n          { printf("%s", yytext); } /* Print non-comment lines */
+%%
+
+int yywrap() {
+    return 1;
+}
+
+int main(int argc, char *argv[]) {
+    if (argc != 3) {
+        printf("Usage: %s input_file output_file\n", argv[0]);
+        return 1;
+    }
+
+    FILE *input = fopen(argv[1], "r");
+    if (input == NULL) {
+        perror("Error opening input file");
+        return 1;
+    }
+
+    FILE *output = fopen(argv[2], "w");
+    if (output == NULL) {
+        perror("Error opening output file");
+        fclose(input);
+        return 1;
+    }
+
+    yyin = input;
+    yyout = output;
+
+    yylex();
+
+    printf("Number of comment lines: %d\n", comment_lines);
+
+    fclose(input);
+    fclose(output);
+    return 0;
+}
