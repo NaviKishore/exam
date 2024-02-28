@@ -1,0 +1,55 @@
+#include <stdio.h>
+#include <stdbool.h>
+#include <string.h>
+#include <ctype.h>
+
+// Function to check if the input string satisfies the grammar
+bool satisfiesGrammar(char *input) {
+    // Define the grammar rules here
+    // For example, let's say our grammar rules are:
+    // 1. Sentence must start with a capital letter.
+    // 2. Sentence must end with a period ('.').
+    // 3. Sentence can contain letters, spaces, commas, and periods.
+
+    int len = strlen(input);
+
+    // Rule 1: Check if the first character is a capital letter
+    if (!isupper(input[0])) {
+        return false;
+    }
+
+    // Rule 2: Check if the last character is a period
+    if (input[len - 1] != '.') {
+        return false;
+    }
+
+    // Rule 3: Check if all characters in between are valid
+    for (int i = 1; i < len - 1; i++) {
+        if (!isalpha(input[i]) && input[i] != ' ' && input[i] != ',' && input[i] != '.') {
+            return false;
+        }
+    }
+
+    // If all rules pass, return true
+    return true;
+}
+
+int main() {
+    char input[100];
+
+    // Input sentence
+    printf("Enter a sentence: ");
+    fgets(input, sizeof(input), stdin);
+
+    // Remove newline character from input
+    input[strcspn(input, "\n")] = '\0';
+
+    // Check if the input satisfies the grammar
+    if (satisfiesGrammar(input)) {
+        printf("The input sentence satisfies the grammar.\n");
+    } else {
+        printf("The input sentence does not satisfy the grammar.\n");
+    }
+
+    return 0;
+}
