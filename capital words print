@@ -1,0 +1,14 @@
+%%
+[A-Z]+[\t\n] { printf("%s is a Capital word\n", yytext); }
+.  ;
+%%
+
+int main( ) 
+{
+	printf("enter the string:\n");
+        yylex();
+}
+int yywrap( )
+{
+	return 1;
+}
