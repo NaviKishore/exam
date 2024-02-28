@@ -1,0 +1,32 @@
+#include <stdio.h>
+
+// Function to validate and recognize operators
+void analyzeOperator(char op) {
+    switch (op) {
+        case '+':
+            printf("Operator: Addition (+)\n");
+            break;
+        case '-':
+            printf("Operator: Subtraction (-)\n");
+            break;
+        case '*':
+            printf("Operator: Multiplication (*)\n");
+            break;
+        case '/':
+            printf("Operator: Division (/)\n");
+            break;
+        default:
+            printf("Invalid Operator!\n");
+    }
+}
+
+int main() {
+    char operators[] = {'+', '-', '*', '/'};
+    int num_operators = sizeof(operators) / sizeof(operators[0]);
+
+    for (int i = 0; i < num_operators; i++) {
+        analyzeOperator(operators[i]);
+    }
+
+    return 0;
+}
