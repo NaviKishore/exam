@@ -1,0 +1,18 @@
+%{
+#include <stdio.h>
+%}
+
+%option noyywrap
+
+%%
+
+[0-9]{4}-[0-9]{2}-[0-9]{2}    { printf("Valid DOB: %s\n", yytext); }
+.    ;
+
+%%
+
+int main( ) 
+{
+    yylex();
+    return 0;
+}
